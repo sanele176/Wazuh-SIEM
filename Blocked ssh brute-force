@@ -1,0 +1,8 @@
+- create a rule to drop ssh loggin for multiple failed loggins 
+- set time outs intervals
+
+<command>
+    <name>firewall-drop</name>
+    <executable>firewall-drop</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
