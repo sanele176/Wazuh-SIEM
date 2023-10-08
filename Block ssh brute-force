@@ -1,8 +1,18 @@
 - create a rule to drop ssh loggin for multiple failed loggins 
-- set time outs intervals
+- set timeout intervals
+- based on rule id : 5760 which correspond to failed login attempts (ensure correct id)
+- Navigate to Management on Wazuh > Configurations > Edit > search active response
 
 <command>
-    <name>firewall-drop</name>
-    <executable>firewall-drop</executable>
+    <name>host-deny</name>
+    <executable>host-deny</executable>
     <timeout_allowed>yes</timeout_allowed>
   </command>
+
+
+<active-response>
+    <command>firewall-drop</command>
+    <location>local</location>
+    <rules_id>5760</rules_id>
+    <timeout>30</timeout>
+  </active-response>
