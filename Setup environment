@@ -1,0 +1,33 @@
+- Obtain OVA from https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html
+- Import the OVA to the virtualization platform.
+  If you're using VirtualBox, set the VMSVGA graphic controller. Setting another graphic controller freezes the VM window.
+  Select the imported VM.
+  Click Settings > Display
+  In Graphic controller, select the VMSVGA option.
+
+- Start the machine.
+  Access the virtual machine using the following user and password. You can use the virtualization platform or access it via SSH.
+  user: wazuh-user
+  password: wazuh
+- start wazuh service
+  sudo systemctl start wazuh-manager
+- Access wazuh web platform on https://<wazuh_server_ip>
+  user: admin
+  password: admin
+- Deploy Windows agent by running below command on host as admin:
+  Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.5.2-1.msi -OutFile ${env:tmp}\wazuh-agent.msi;
+  msiexec.exe /i ${env:tmp}\wazuh-agent.msi /q WAZUH_MANAGER='192.168.8.105' WAZUH_REGISTRATION_SERVER='192.168.8.105' WAZUH_AGENT_GROUP='default' WAZUH_AGENT_NAME='windows' 
+
+  Start agent;
+  NET START Wazuh
+
+- Deploy Linux agent by running below command on host:
+  sudo WAZUH_MANAGER='192.168.8.105' WAZUH_AGENT_GROUP='default' WAZUH_AGENT_NAME='linux' yum install -y https://packages.wazuh.com/4.x/yum/wazuh-agent-4.5.2-1.x86_64.rpm
+
+  Start and enable the agent:
+  sudo systemctl enable wazuh-agent
+  sudo systemctl start wazuh-agent
+
+Deliverables
+- attached Sample of CIS Microsoft Windows 10 Enterprise Benchmark v1.12.0
+
