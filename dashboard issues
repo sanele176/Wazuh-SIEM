@@ -1,0 +1,2 @@
+wazuh dashboard issues;
+sudo systemctl restart wazuh-indexer
